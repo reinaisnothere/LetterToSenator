@@ -33,11 +33,6 @@ var schema = {
       message: "Please enter a valid zip code",
       pattern: /[0-9]{5}/
     },
-    "Message": {
-      description: "Message",
-      message: "Please enter your message to the senator",
-      required: true
-    }
   }
 };
 
