@@ -1,0 +1,27 @@
+{
+  "name": "letter-to-senator",
+  "version": "1.0.0",
+  "description": "An app that generates letters to your state's senator given your address",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/reinaisnothere/LetterToSenator.git"
+  },
+  "keywords": [
+    "Node",
+    "Lob"
+  ],
+  "author": "Reina Mei",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/reinaisnothere/LetterToSenator/issues"
+  },
+  "homepage": "https://github.com/reinaisnothere/LetterToSenator#readme",
+  "dependencies": {
+    "dotenv": "^2.0.0",
+    "express": "^4.14.0"
+  }
+}
