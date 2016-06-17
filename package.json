@@ -23,6 +23,7 @@
   "homepage": "https://github.com/reinaisnothere/LetterToSenator#readme",
   "dependencies": {
     "dotenv": "^2.0.0",
-    "prompt": "^1.0.0"
+    "prompt": "^1.0.0",
+    "then-request": "^2.2.0"
   }
 }

@@ -1,5 +1,5 @@
 require('dotenv').load();
-
+var request = require('then-request');
 var prompt = require('prompt');
 
 var schema = {
@@ -44,20 +44,24 @@ var schema = {
 prompt.start();
 
 prompt.get(schema, function(err, result) {
-  console.log(result);
+  request('GET', 'https://www.googleapis.com/civicinfo/v2/representatives', {
+    qs: {
+      key: process.env.GOOGLE_API_KEY,
+      roles: 'legislatorUpperBody',
+      address: result['From State']
+    }
+  })
+  .done(function(results) {
+    if (results.statusCode === 200) {
+      var official = JSON.parse(results.body).officials[0];
+      var toName = official.name;
+      var toAddressLine1 = official.address[0].line1;
+      var toAddressLine2 = official.address[0].line2; //can be undefined
+      var toCity = official.address[0].city;
+      var toState = official.address[0].state;
+      var toZip = official.address[0].zip;
+    } else {
+      console.error('Something went wrong. Please try again and make sure your input is valid.');
+    }
+  })
 });
-
-
-// From Name: Joe Schmoe
-
-// From Address Line 1: 185 Berry Street
-
-// From Address Line 2: Suite 170
-
-// From City: San Francisco
-
-// From State: CA
-
-// From Zip Code: 94107
-
-// Message: This is a test letter for Lob’s coding challenge. Thank you legislator.
