@@ -2,7 +2,7 @@ require('dotenv').load();
 
 var request = require('then-request');
 var prompt = require('prompt');
-var Lob = require('lob')('test_0dc8d51e0acffcb1880e0f19c79b2f5b0cc');
+var Lob = require('lob')(process.env.LOB_API_KEY);
 
 var schema = {
   properties: {
