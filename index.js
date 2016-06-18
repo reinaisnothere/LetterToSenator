@@ -33,7 +33,7 @@ var schema = {
     address_zip: {
       description: "From Zip Code",
       message: "Please enter a valid zip code",
-      pattern: /[0-9]{5}/,
+      pattern: /^[0-9]{5}$/,
       required: true
     },
     message: {
