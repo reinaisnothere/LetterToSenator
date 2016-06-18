@@ -36,12 +36,20 @@ var schema = {
       pattern: /[0-9]{5}/,
       required: true
     },
+    message: {
+      description: "Enter your 200-word message",
+      message: "A message is requried",
+      required: true
+    }
   }
 };
 
 prompt.start();
 
 prompt.get(schema, function(err, result) {
+  if (err) {
+    return console.error('Something went wrong. Please try again and make sure your input is valid.');
+  }
   request('GET', 'https://www.googleapis.com/civicinfo/v2/representatives', {
     qs: {
       key: process.env.GOOGLE_API_KEY,
@@ -51,7 +59,17 @@ prompt.get(schema, function(err, result) {
   })
   .done(function(results) {
     if (results.statusCode === 200) {
-      var sender = result;
+      var sender = {
+        name: result.name,
+        address_line1: result.address_line1,
+        address_city: result.address_city,
+        address_state: result.address_state,
+        address_zip: result.address_zip,
+        address_country: 'US',
+      };
+      if (result.address_line2) {
+        sender.address_line2 = result.address_line2;
+      }
       var official = JSON.parse(results.body).officials[0];
       var recipient = {
         name: official.name,
@@ -68,9 +86,9 @@ prompt.get(schema, function(err, result) {
         description: 'Demo Letter',
         to: recipient,
         from: sender,
-        file: '<html style="padding-top: 3in; margin: .5in;">This is a test letter sent to Senator {{name}}</html>',
+        file: '<html style="padding-top: 3in; margin: .5in;">{{message}}</html>',
         data: {
-          name: recipient.name
+          message: result.message
         },
         color: true
       }, function (err, res) {
