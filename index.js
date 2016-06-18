@@ -62,14 +62,12 @@ prompt.get(schema, function(err, result) {
       var sender = {
         name: result.name,
         address_line1: result.address_line1,
+        address_line2: result.address_line2,
         address_city: result.address_city,
         address_state: result.address_state,
         address_zip: result.address_zip,
         address_country: 'US',
       };
-      if (result.address_line2) {
-        sender.address_line2 = result.address_line2;
-      }
       var official = JSON.parse(results.body).officials[0];
       var recipient = {
         name: official.name,
